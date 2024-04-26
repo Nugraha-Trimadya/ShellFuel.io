@@ -50,6 +50,26 @@ select {
 }
 
 
+.tombol-print{
+    width: 30%;
+    
+}
+
+@media print{
+            .transaksi {
+                display: none;
+                visibility: visible;
+            }
+
+            form {
+                display: none;
+            }
+
+            .tombol-print {
+                display: none;
+            }
+
+}
 button {
     width: 100%;
     padding: 15px;
@@ -72,6 +92,9 @@ button:hover {
             hr {
                 width: 50%;
             }
+            .tombol-print{
+                width: 80%;
+            }
         }
     </style>
 </head>
@@ -80,7 +103,7 @@ button:hover {
     <div id="isi">
         <div class="logo"><img src="logo.jpeg" alt=""></div>
         <h2>Shell Fuel</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="POST">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <label for="jumlah">Jumlah Liter:</label>
             <input type="number" id="jumlah" name="jumlah" min="0" step="1" required>
             <br> <br>
@@ -144,12 +167,13 @@ button:hover {
                 public function buktiTransaksi()
                 {
                     $total = $this->Total();
-                    echo "<div class='transaksi' style='text-align: center;'>";
+                    echo "<div class='Transaksi' style='text-align: center;'>";
                     echo "<hr>";
                     echo "<p><strong>Anda membeli bahan bakar minyak dengan tipe </strong> " . $this->jenis . "</p>";
                     echo "<p><strong>Dengan jumlah :</strong> " . $this->jumlah . " Liter</p>";
                     echo "<p><strong>Total yang harus anda bayar:</strong> Rp " . number_format($total, 2, ',', '.') . "</p>";
                     echo "<hr>";
+                    echo "<button onclick='printTransaksi()' class='tombol-print'>Cetak Hasil Transaksi</button>";
                     echo "</div>";
                 }
 
@@ -175,6 +199,11 @@ button:hover {
         }
         ?>
 
+        <script>
+                function printTransaksi(){
+        window.print();
+}
+        </script>
     </div>
 </body>
 
